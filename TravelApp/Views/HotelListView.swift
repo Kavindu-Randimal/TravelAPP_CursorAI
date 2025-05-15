@@ -11,7 +11,7 @@ struct HotelListView: View {
                     TextField("Stockholm, Sweden", text: .constant(""))
                         .padding(10)
                         .background(Color(uiColor: .systemGray6))
-                        .cornerRadius(10)
+                        .cornerRadius(11)
                     Image(systemName: "magnifyingglass")
                         .foregroundColor(.blue)
                 }
