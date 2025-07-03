@@ -51,6 +51,8 @@ struct CarCard: View {
     }
 }
 
-#Preview {
-    CarRentalListView()
+struct CarRentalListView_Previews: PreviewProvider {
+    static var previews: some View {
+        CarRentalListView()
+    }
 } 

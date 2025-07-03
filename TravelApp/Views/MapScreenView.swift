@@ -14,6 +14,8 @@ struct MapScreenView: View {
     }
 }
 
-#Preview {
-    MapScreenView()
+struct MapScreenView_Previews: PreviewProvider {
+    static var previews: some View {
+        MapScreenView()
+    }
 } 

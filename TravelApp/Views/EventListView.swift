@@ -1,7 +1,10 @@
 import SwiftUI
 
 struct EventListView: View {
-    var events: [SimpleEvent] = SimpleEvent.sampleEvents
+    var events: [SimpleEvent] = [
+        SimpleEvent(id: "1", title: "Mirissa Beach Party", date: Date()),
+        SimpleEvent(id: "2", title: "Stockholm Festival", date: Date().addingTimeInterval(86400 * 30))
+    ]
 
     var body: some View {
         NavigationView {
@@ -23,20 +26,16 @@ struct EventCard: View {
 
     var body: some View {
         HStack {
-            Image(event.imageName)
-                .resizable()
-                .scaledToFill()
+            Rectangle()
+                .fill(Color.blue)
                 .frame(width: 100, height: 60)
                 .cornerRadius(10)
             VStack(alignment: .leading) {
-                Text(event.name)
+                Text(event.title)
                     .font(.headline)
-                Text(event.location)
+                Text(event.date, style: .date)
                     .font(.subheadline)
                     .foregroundColor(.secondary)
-                Text(event.date)
-                    .font(.subheadline)
-                    .foregroundColor(.blue)
             }
             Spacer()
             Button(action: {}) {
@@ -51,19 +50,8 @@ struct EventCard: View {
     }
 }
 
-struct SimpleEvent: Identifiable {
-    let id = UUID()
-    let name: String
-    let location: String
-    let date: String
-    let imageName: String
-
-    static let sampleEvents: [SimpleEvent] = [
-        SimpleEvent(name: "Mirissa Beach Party", location: "Mirissa", date: "2024-07-10", imageName: "event1"),
-        SimpleEvent(name: "Stockholm Festival", location: "Stockholm", date: "2024-08-15", imageName: "event2")
-    ]
-}
-
-#Preview {
-    EventListView()
+struct EventListView_Previews: PreviewProvider {
+    static var previews: some View {
+        EventListView()
+    }
 } 

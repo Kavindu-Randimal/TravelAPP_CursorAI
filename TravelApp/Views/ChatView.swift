@@ -3,9 +3,9 @@ import SwiftUI
 struct ChatView: View {
     @State private var message = ""
     @State private var messages: [ChatMessage] = [
-        ChatMessage(text: "Hello! How can I help you?", isMe: false),
-        ChatMessage(text: "I'm looking for hotels in Stockholm", isMe: true),
-        ChatMessage(text: "I can help you find the perfect hotel. What's your budget?", isMe: false)
+        ChatMessage(id: "1", senderId: "bot", text: "Hello! How can I help you?", timestamp: Date()),
+        ChatMessage(id: "2", senderId: "me", text: "I'm looking for hotels in Stockholm", timestamp: Date()),
+        ChatMessage(id: "3", senderId: "bot", text: "I can help you find the perfect hotel. What's your budget?", timestamp: Date())
     ]
 
     var body: some View {
@@ -14,13 +14,13 @@ struct ChatView: View {
                 VStack(spacing: 12) {
                     ForEach(messages) { message in
                         HStack {
-                            if message.isMe { Spacer() }
+                            if message.senderId == "me" { Spacer() }
                             Text(message.text)
                                 .padding()
-                                .background(message.isMe ? Color.blue : Color(uiColor: .systemGray6))
-                                .foregroundColor(message.isMe ? .white : .primary)
+                                .background(message.senderId == "me" ? Color.blue : Color(uiColor: .systemGray6))
+                                .foregroundColor(message.senderId == "me" ? .white : .primary)
                                 .cornerRadius(16)
-                            if !message.isMe { Spacer() }
+                            if message.senderId != "me" { Spacer() }
                         }
                     }
                 }
@@ -34,7 +34,7 @@ struct ChatView: View {
 
                 Button(action: {
                     if !message.isEmpty {
-                        messages.append(ChatMessage(text: message, isMe: true))
+                        messages.append(ChatMessage(id: UUID().uuidString, senderId: "me", text: message, timestamp: Date()))
                         message = ""
                     }
                 }) {
@@ -49,12 +49,8 @@ struct ChatView: View {
     }
 }
 
-struct ChatMessage: Identifiable {
-    let id = UUID()
-    let text: String
-    let isMe: Bool
-}
-
-#Preview {
-    ChatView()
+struct ChatView_Previews: PreviewProvider {
+    static var previews: some View {
+        ChatView()
+    }
 } 
